@@ -115,10 +115,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\Addins\MacroMapper - For Testing.AddIn">
-      <Link>MacroMapper - For Testing.AddIn</Link>
-    </Content>
     <Content Include="MacroMapper.AddIn" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
