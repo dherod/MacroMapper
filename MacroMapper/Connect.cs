@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.CommandBars;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
+using Microsoft.VisualBasic;
 
 namespace MacroMapper
 {
@@ -45,20 +46,24 @@ namespace MacroMapper
 				//  just make sure you also update the QueryStatus/Exec method to include the new command names.
 				try
 				{
-					//Add a command to the Commands collection:
-					Command command = commands.AddNamedCommand2(_addInInstance, "MacroMapper", "MacroMapper", "Executes the command for MacroMapper", true, 59, ref contextGUIDS, (int)vsCommandStatus.vsCommandStatusSupported+(int)vsCommandStatus.vsCommandStatusEnabled, (int)vsCommandStyle.vsCommandStylePictAndText, vsCommandControlType.vsCommandControlTypeButton);
+					//Add to the Commands collection:
+                    Command commandTurnOnLineNumbers = commands.AddNamedCommand2(_addInInstance, "TurnOnLineNumbers", "TurnOnLineNumbers", "Executes the command for TurnOnLineNumbers", true, 59, ref contextGUIDS, (int)vsCommandStatus.vsCommandStatusSupported + (int)vsCommandStatus.vsCommandStatusEnabled, (int)vsCommandStyle.vsCommandStylePictAndText, vsCommandControlType.vsCommandControlTypeButton);
+                    Command commandTurnOffLineNumbers = commands.AddNamedCommand2(_addInInstance, "TurnOffLineNumbers", "TurnOffLineNumbers", "Executes the command for TurnOnLineNumbers", true, 59, ref contextGUIDS, (int)vsCommandStatus.vsCommandStatusSupported + (int)vsCommandStatus.vsCommandStatusEnabled, (int)vsCommandStyle.vsCommandStylePictAndText, vsCommandControlType.vsCommandControlTypeButton);
 
-					//Add a control for the command to the tools menu:
-					if((command != null) && (toolsPopup != null))
-					{
-						command.AddControl(toolsPopup.CommandBar, 1);
-					}
+                    //Add a control for commandTurnOnLineNumbers to the tools menu:
+                    if ((commandTurnOnLineNumbers != null) && (toolsPopup != null))
+                        commandTurnOnLineNumbers.AddControl(toolsPopup.CommandBar, 1);
+
+                    //Add a control for commandTurnOffLineNumbers to the tools menu:
+                    if ((commandTurnOffLineNumbers != null) && (toolsPopup != null))
+                        commandTurnOffLineNumbers.AddControl(toolsPopup.CommandBar, 2);
 				}
-				catch(System.ArgumentException)
+				catch(System.ArgumentException exc)
 				{
 					//If we are here, then the exception is probably because a command with that name
 					//  already exists. If so there is no need to recreate the command and we can 
                     //  safely ignore the exception.
+                    Microsoft.VisualBasic.Interaction.MsgBox(string.Format("Exception with commands: {0} {1}", exc.Message, exc.InnerException));
 				}
 			}
 		}
@@ -102,11 +107,17 @@ namespace MacroMapper
 		{
 			if(neededText == vsCommandStatusTextWanted.vsCommandStatusTextWantedNone)
 			{
-				if(commandName == "MacroMapper.Connect.MacroMapper")
-				{
-					status = (vsCommandStatus)vsCommandStatus.vsCommandStatusSupported|vsCommandStatus.vsCommandStatusEnabled;
-					return;
-				}
+                switch (commandName)
+                {
+                    case "MacroMapper.Connect.TurnOnLineNumbers":
+                        status = (vsCommandStatus)vsCommandStatus.vsCommandStatusSupported | vsCommandStatus.vsCommandStatusEnabled;
+                        break;
+                    case "MacroMapper.Connect.TurnOffLineNumbers":
+                        status = (vsCommandStatus)vsCommandStatus.vsCommandStatusSupported | vsCommandStatus.vsCommandStatusEnabled;
+                        break;
+                    default:
+                        break;
+                }
 			}
 		}
 
@@ -122,11 +133,35 @@ namespace MacroMapper
 			handled = false;
 			if(executeOption == vsCommandExecOption.vsCommandExecOptionDoDefault)
 			{
-				if(commandName == "MacroMapper.Connect.MacroMapper")
-				{
-					handled = true;
-					return;
-				}
+                switch (commandName)
+                {
+                    case "MacroMapper.Connect.TurnOnLineNumbers":
+                        //Macro Sub TurnOnLineNumbers() from VisualStudio 2010 (Converted to DTE2)
+                        _applicationObject.get_Properties("TextEditor", "Basic").Item("ShowLineNumbers").Value = true;
+                        _applicationObject.get_Properties("TextEditor", "PlainText").Item("ShowLineNumbers").Value = true;
+                        _applicationObject.get_Properties("TextEditor", "CSharp").Item("ShowLineNumbers").Value = true;
+                        _applicationObject.get_Properties("TextEditor", "HTML").Item("ShowLineNumbers").Value = true;
+                        _applicationObject.get_Properties("TextEditor", "C/C++").Item("ShowLineNumbers").Value = true;
+                        _applicationObject.get_Properties("TextEditor", "XML").Item("ShowLineNumbers").Value = true;
+
+                        handled = true;
+                        break;
+
+                    case "MacroMapper.Connect.TurnOffLineNumbers":
+                        //Macro Sub TurnOffLineNumbers() from VisualStudio 2010 (Converted to DTE2)
+                        _applicationObject.get_Properties("TextEditor", "Basic").Item("ShowLineNumbers").Value = false;
+                        _applicationObject.get_Properties("TextEditor", "PlainText").Item("ShowLineNumbers").Value = false;
+                        _applicationObject.get_Properties("TextEditor", "CSharp").Item("ShowLineNumbers").Value = false;
+                        _applicationObject.get_Properties("TextEditor", "HTML").Item("ShowLineNumbers").Value = false;
+                        _applicationObject.get_Properties("TextEditor", "C/C++").Item("ShowLineNumbers").Value = false;
+                        _applicationObject.get_Properties("TextEditor", "XML").Item("ShowLineNumbers").Value = false;
+
+                        handled = true;
+                        break;
+
+                    default:
+                        break;
+                }
 			}
 		}
 		private DTE2 _applicationObject;
