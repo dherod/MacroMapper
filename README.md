@@ -26,9 +26,9 @@ To add more Macros as Add-in Commands:
 
 For this project:
 
-5. Now when you open Visual Studio 2012, you will see 2 (happy!) commands under TOOLS toolbar, TurnOnLineNumbers and TurnOffLineNumbers.
+5  Now when you open Visual Studio 2012, you will see 2 (happy!) commands under TOOLS toolbar, TurnOnLineNumbers and TurnOffLineNumbers.
 
-6. To get really interactive, map these commands to Keyboard shortcuts via TOOLS - Options - Environment - Keyboard - Show commands containing: MacroMapper.Connect.  Go ahead and map those 2 commands to appropriate keyboard shortcuts and you can now toggle line numbers in files on and off quickly.
+6  To get really interactive, map these commands to Keyboard shortcuts via TOOLS - Options - Environment - Keyboard - Show commands containing: MacroMapper.Connect.  Go ahead and map those 2 commands to appropriate keyboard shortcuts and you can now toggle line numbers in files on and off quickly.
 
 
 
