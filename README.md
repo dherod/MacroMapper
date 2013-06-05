@@ -6,15 +6,15 @@ This projects creates a loadable Add-in that maps Macro functionality so that it
 
 As an example, the Macros from Visual Studio 2010 for turning line numbers on and off were mapped in this Add-in as Commands and added to the TOOLS toolbar:
 
-Visual Studio 2010 Macro					->	Visual Studio 2012 Add-in Command
---------------------------------------------	---------------------------------
-Macros.Samples.Utilities.TurnOnLineNumbers	->	MacroMapper.Connect.TurnOnLineNumbers
-Macros.Samples.Utilities.TurnOffLineNumbers	->	MacroMapper.Connect.TurnOffLineNumbers
+Visual Studio 2010 Macro                       ->      Visual Studio 2012 Add-in Command
+--------------------------------------------           ---------------------------------
+Macros.Samples.Utilities.TurnOnLineNumbers     ->      MacroMapper.Connect.TurnOnLineNumbers
+Macros.Samples.Utilities.TurnOffLineNumbers    ->      MacroMapper.Connect.TurnOffLineNumbers
 
 To get this functionality without building the project, close all like Step 3 below then copy the 2 files from the INSTALL directory to the location in Step 4 below.  Then Steps 5 and 6 are in play.
 
 
-Any Macro can be added this way as an Add-in Command:
+To add more Macros as Add-in Commands:
 
 1. Get the definition via Visual Studio 2010 - Tools - Macros - Macro Explorer, browse and right-click - Edit to bring up the definition (in Visual Basic).
 
@@ -22,7 +22,7 @@ Any Macro can be added this way as an Add-in Command:
 
 3. Build and then close all Visual Studio 2012 instances.
 
-4. Copy 2 files into Addins where have Visual Studio 2012 installed, which is probably like C:\Users\YOUR LOGIN\Documents\Visual Studio 2012\Addins: 1. MacroMapper\MacroMapper.AddIn and 2. MacroMapper\bin\MacroMapper.dll
+4. Copy 2 files into Addins where have Visual Studio 2012 installed, which is probably like C:\Users\YOUR LOGIN\Documents\Visual Studio 2012\Addins: MacroMapper\MacroMapper.AddIn and MacroMapper\bin\MacroMapper.dll
 
 For this project:
 
