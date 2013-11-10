@@ -2,7 +2,7 @@
 
 Visual Studio 2012 no longer has the Macro functionality that was available in previous versions.
 
-This projects creates a loadable Add-in that maps Macro functionality so that it can be easily bound to the TOOLS toolbar or Keyboard shortcuts.
+This project creates a loadable Add-in that maps Macro functionality so that it can be easily bound to the TOOLS toolbar or Keyboard shortcuts.
 
 As an example, the Macros from Visual Studio 2010 for turning line numbers on and off were mapped in this Add-in as Commands and added to the TOOLS toolbar:
 
